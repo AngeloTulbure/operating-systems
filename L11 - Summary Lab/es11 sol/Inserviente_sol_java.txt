@@ -1,0 +1,29 @@
+package barbecue;
+import java.util.Random;
+
+
+public class Inserviente extends Thread {
+
+	private Monitor m;
+	private Random r;
+	
+	public Inserviente(Monitor m, Random r) {
+		super();
+		this.m = m;
+		this.r = r;
+	}
+	
+	public void run(){
+		try{
+		while(true){
+			m.acquireToClean();
+			sleep(1000*(r.nextInt(3)+1));
+			m.releaseAfterClean();
+			sleep(500*(r.nextInt(2)+1));
+		}
+		}catch(InterruptedException e){
+			e.printStackTrace();
+		}
+	}
+	
+}

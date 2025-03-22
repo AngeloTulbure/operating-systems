@@ -1,0 +1,35 @@
+package barbecue;
+import java.util.Random;
+
+
+public class Preparazione extends Thread {
+	
+	private Monitor m;
+	private Random r;
+	
+	public Preparazione(Monitor m, Random r) {
+		super();
+		this.m = m;
+		this.r = r;
+	}
+	
+	public void run(){
+		//Ogni oggetto preparazione fa in realtÃ  due preparazioni, ma e' assolutamente arbitrario
+		//e non importante ai fini dell'esercizio
+		try{
+			int tipo;
+			while(true){
+				tipo = r.nextInt(2);
+				m.acquireBBQ(tipo);
+				sleep(1000*(r.nextInt(3)+1));
+				m.releaseBBQ(tipo);
+				sleep(500*(r.nextInt(2)+1));
+			}
+		}catch(InterruptedException e){
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+}
