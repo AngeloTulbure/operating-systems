@@ -1,0 +1,43 @@
+import java.util.Random;
+
+public class Supermercato {
+// var. locali: capienza, posti occupati, cassa e totale clienti
+private  int capienza;
+private int liberi, cassa, tot_clienti;
+Random r=new Random(System.currentTimeMillis());
+
+
+public  Supermercato(int MAX)
+{	this.capienza=MAX;
+	this.liberi=capienza;
+	this.cassa=0;
+	this.tot_clienti=0;
+}
+
+public synchronized boolean entra(int id)
+{	boolean risultato;	
+	System.out.println("ENTRA "+id+" - I posti liberi sono " + liberi );
+
+	if (liberi>0)
+	{	risultato=true;
+		liberi --;
+	}
+	else risultato=false;
+	return risultato; 	
+}
+
+public synchronized void esce(int id,  int importo)
+{ 	System.out.println("Thread " + id + " paga euro "+ importo);
+		this.cassa+= importo++;
+		this.tot_clienti++;
+		liberi++;
+}
+
+/*per l'uso che ne facciamo in questo progetto  stampa() non ha bisogno di essere synchronized, perche il main lo chiama
+solo una volta che sono terminati tutti i thread. Tuttavia, cosa accadrebbe se il mio main fosse diverso? ad esempio, se volessi stampare 
+i pareri prima che i thread figli abbiano concluso la loro esecuzione?*/
+public synchronized void stampa()
+{ System.out.println("Chiusura Supermercato - In cassa ci sono euro " + cassa + "; i clienti serviti sono stati " + tot_clienti + ".");
+}
+
+}
