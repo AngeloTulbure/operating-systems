@@ -1,0 +1,27 @@
+public class Auto extends Thread {
+
+	private Monitor m;
+	private int direzione;
+	
+	
+	public Auto(Monitor m, int direzione)
+	{
+		this.m = m;
+		this.direzione = direzione;
+	}
+	
+	
+	public void run()
+	{
+		try
+		{
+			m.inizio_transitoA(direzione);
+		
+			Thread.sleep(100);
+			
+			m.fine_transitoA(direzione);
+		}
+		catch (InterruptedException e){}
+	}
+	
+}

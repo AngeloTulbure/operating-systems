@@ -1,0 +1,27 @@
+package esercitazione10_1920;
+
+import java.util.Random;
+
+
+public class esercitazione10 {
+	
+	public static void main(String args[]){
+		Monitor m = new Monitor(10);
+		Random r = new Random();
+		int n_clienti=r.nextInt(30);
+		Cliente[] arrayclienti= new Cliente[n_clienti];
+		System.out.println(" L'ufficio Ã¨ aperto! Sono previsti "+n_clienti+" clienti.");
+		for (int i = 0; i < n_clienti; i++) {
+			int x = r.nextInt(2);			
+			if (x==0)
+				arrayclienti[i]=new Cliente("CER",i, m, r);
+			else 
+				arrayclienti[i]=new Cliente("IDE",i, m, r);
+		}
+		
+		for (int i = 0; i < n_clienti; i++) {
+			arrayclienti[i].start();
+		}
+	}
+	
+}
